@@ -65,12 +65,6 @@ Aplicar conceitos fundamentais do desenvolvimento mobile Android, incluindo:
 
 ---
 
-## 👨‍💻 Autor(es)
-
-* Seu nome aqui
-
----
-
 ## 📌 Observações
 
 Este projeto é acadêmico e não possui integração com backend ou banco de dados real, utilizando armazenamento local para simulação.
