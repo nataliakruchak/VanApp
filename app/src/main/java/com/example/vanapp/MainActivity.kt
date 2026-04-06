@@ -1,0 +1,46 @@
+package com.example.vanapp
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.vanapp.viewmodel.VanViewModel
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: VanViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val nomeUsuario = intent.getStringExtra("usuario")
+        val txtUsuario = findViewById<TextView>(R.id.txtUsuario)
+        val listView = findViewById<ListView>(R.id.listView)
+
+        txtUsuario.text = "Bem-vindo, $nomeUsuario"
+
+        viewModel = ViewModelProvider(this).get(VanViewModel::class.java)
+
+        viewModel.getVans().observe(this) { vans ->
+
+            val adapter = VanAdapter(this, vans)
+            listView.adapter = adapter
+
+            listView.setOnItemClickListener { _, _, position, _ ->
+
+                val van = vans[position]
+
+                val intent = Intent(this, DetalhesActivity::class.java)
+                intent.putExtra("rota", van.rota)
+                intent.putExtra("motorista", van.motorista)
+                intent.putExtra("horario", van.horario)
+                startActivity(intent)
+            }
+        }
+
+    }
+}
