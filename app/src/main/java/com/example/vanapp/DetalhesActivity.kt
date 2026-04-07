@@ -1,40 +1,37 @@
 package com.example.vanapp
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vanapp.databinding.ActivityDetalhesBinding
 
 class DetalhesActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityDetalhesBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detalhes)
+
+        // 🔗 ligação com o layout
+        binding = ActivityDetalhesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val rota = intent.getStringExtra("rota")
         val motorista = intent.getStringExtra("motorista")
         val horario = intent.getStringExtra("horario")
 
-        val txtRota = findViewById<TextView>(R.id.txtRota)
-        val txtMotorista = findViewById<TextView>(R.id.txtMotorista)
-        val txtHorario = findViewById<TextView>(R.id.txtHorario)
-        val btnConfirmar = findViewById<Button>(R.id.btnConfirmar)
-        val btnVoltar = findViewById<ImageButton>(R.id.btnVoltar)
-
         // 🔙 botão voltar
-        btnVoltar.setOnClickListener {
+        binding.btnVoltar.setOnClickListener {
             finish()
         }
 
         // 📄 dados
-        txtRota.text = rota
-        txtMotorista.text = "Motorista: $motorista"
-        txtHorario.text = "Horário: $horario"
+        binding.txtRota.text = rota
+        binding.txtMotorista.text = "Motorista: $motorista"
+        binding.txtHorario.text = "Horário: $horario"
 
         // ✅ confirmação
-        btnConfirmar.setOnClickListener {
+        binding.btnConfirmar.setOnClickListener {
             Toast.makeText(this, "Embarque confirmado!", Toast.LENGTH_SHORT).show()
         }
     }

@@ -2,7 +2,6 @@ package com.example.vanapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,12 +25,10 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(VanViewModel::class.java)
 
         viewModel.getVans().observe(this) { vans ->
-
             val adapter = VanAdapter(this, vans)
             listView.adapter = adapter
 
             listView.setOnItemClickListener { _, _, position, _ ->
-
                 val van = vans[position]
 
                 val intent = Intent(this, DetalhesActivity::class.java)
@@ -42,5 +39,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.carregarVans()
     }
 }

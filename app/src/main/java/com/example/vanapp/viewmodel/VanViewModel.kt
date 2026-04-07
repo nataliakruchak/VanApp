@@ -4,16 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vanapp.model.Van
+import com.example.vanapp.repository.VanRepository
 
-class VanViewModel: ViewModel() {
+class VanViewModel : ViewModel() {
+
+    private val repository = VanRepository()
+
     private val vans = MutableLiveData<List<Van>>()
 
-    fun getVans(): LiveData<List<Van>> {
-        vans.value = listOf(
-            Van("Asa Sul → Empresa", "Carlos", "07:00"),
-            Van("Ceilândia → Empresa", "João", "07:30"),
-            Van("Taguatinga → Empresa", "Ana", "08:00")
-        )
-        return vans
+    fun getVans(): LiveData<List<Van>> = vans
+
+    fun carregarVans() {
+        repository.buscarVans { lista ->
+            vans.value = lista
+        }
     }
 }
